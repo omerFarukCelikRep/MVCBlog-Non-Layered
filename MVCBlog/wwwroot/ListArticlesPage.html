@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Medium</title>
+    <link href="twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <style>
+        .dropbtn {
+            background-color: white;
+        }
+        /* The container <div> - needed to position the dropdown content */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Dropdown Content (Hidden by Default) */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: white;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            /* Links inside the dropdown */
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                /* Change color of dropdown links on hover */
+                .dropdown-content a:hover {
+                    background-color: #ddd
+                }
+
+        /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+        .show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bookmarks" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <div class="dropdown text-end">
+                                <a href="#" class="d-block link-dark text-decoration-none mt-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="https://cdn-images-1.medium.com/fit/c/32/32/1*dmbNkD5D-u45r44go_cf0g.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                                </a>
+                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+                                    <li>
+                                        <div class="d-inline-flex">
+                                            <div>
+                                                <img class="rounded-circle img-40 img-40h ms-3 mt-2" src="Images/1_dmbNkD5D-u45r44go_cf0g.png" />
+                                            </div>
+                                            <div>
+                                                <a class="dropdown-item" href="#">Yazar İsmi</a>
+                                                <a class="dropdown-item text-black-50" href="#">@Yazar İsmi</a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Write A Story</a></li>
+                                    <li><a class="dropdown-item" href="#">Story</a></li>
+                                    <li><a class="dropdown-item" href="#">Stats</a></li>
+                                    <li><a class="dropdown-item" href="#">Design Your Profile</a></li>
+                                    <li><a class="dropdown-item" href="#">Settings</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Reading List</a></li>
+                                    <li><a class="dropdown-item" href="#">Publications</a></li>
+                                    <li><a class="dropdown-item" href="#">Control Your Recommendations</a></li>
+                                    <li><a class="dropdown-item" href="#">Medium Partner Program</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item text-success" href="#">Become A Member</a></li>
+                                    <li><a class="dropdown-item" href="#">Help</a></li>
+                                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <div class="row">
+                <div class="col-8">
+                    <h1>Your Stories</h1>
+                </div>
+                <div class="col-4 ">
+                    <a class="nav-link link-success border rounded border-success float-end ms-2" aria-current="page" href="#">Write A Story</a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-draft-tab" data-bs-toggle="tab" data-bs-target="#nav-draft" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Drafts</button>
+                <button class="nav-link " id="nav-published-tab" data-bs-toggle="tab" data-bs-target="#nav-published" type="button" role="tab" aria-controls="nav-published" aria-selected="false">Published</button>
+                <button class="nav-link" id="nav-response-tab" data-bs-toggle="tab" data-bs-target="#nav-response" type="button" role="tab" aria-controls="nav-response" aria-selected="false">Responses</button>
+            </div>
+        </nav>
+        <div class="tab-content border-bottom" id="nav-tabContent">
+            <div class="tab-pane fade active show mt-4" id="nav-draft" role="tabpanel" aria-labelledby="nav-draft-tab">
+                <div class="border-bottom mt-3">
+                    <h5>Deneme</h5>
+                    <p class="text-black-50 fs-5">Deneme</p>
+
+                    <div class="d-flex">
+                        <p class="text-black-50 fs-6">
+                            Last edited <label>9</label> minutes ago . <label>1</label>  min read
+                        </p>
+                            <div class="dropdown">
+                                <button onclick="myFunction()" class="dropbtn border-0 dropdown-toggle"></button>
+                                <div id="myDropdown" class="dropdown-content">
+                                    <a href="#">Link 1</a>
+                                    <a href="#">Link 2</a>
+                                    <a href="#">Link 3</a>
+                                </div>
+                            </div>
+                        <div class="dropdown text-end">
+                            <a href="#" class="d-block link-dark text-decoration-none mt-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="https://cdn-images-1.medium.com/fit/c/32/32/1*dmbNkD5D-u45r44go_cf0g.png" alt="mdo" width="32" height="32" class="rounded-circle">
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="border-bottom mt-2">
+                    <h5>Deneme</h5>
+                    <p class="text-black-50 fs-5">Deneme</p>
+
+                    <div class="dropdown d-flex">
+                        <p class="text-black-50 fs-6">
+                            Last edited <label>9</label> minutes ago . <label>1</label>  min read
+
+                        </p>
+                        <input type="submit" class="btn btn-danger" value="Delete" />
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-pane fade show text-center mt-5" id="nav-published" role="tabpanel" aria-labelledby="nav-published-tab">
+                You haven’t published any public stories yet.
+            </div>
+
+            <div class="tab-pane fade" id="nav-response" role="tabpanel" aria-labelledby="nav-response-tab">Responses</div>
+        </div>
+    </div>
+
+
+    <script src="~/twitter-bootstrap/js/bootstrap.js"></script>
+    <script>
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // Close the dropdown menu if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

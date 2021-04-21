@@ -1,0 +1,58 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+
+
+@using (Html.BeginForm("Create", "Member", FormMethod.Post))
+{
+    @Html.ValidationSummary(true)
+    <!-- Sign-Up Modal -->
+    <div class="modal fade" id="sign-upModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div id="modal" class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center m-5">
+                    <h3>Sign up with email</h3>
+                    <br />
+                    <p>Enter your email address to create an account.</p>
+                    <div class="d-grid">
+                        <p>Your Email</p>
+                        <input class="border-0 border-bottom border-dark" asp-for="Email" value="" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <input class="btn btn-dark rounded-pill" type="submit" value="Continue" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+@using (Html.BeginForm("SignIn", "Member", FormMethod.Post))
+{
+
+    <!-- Sign-In Modal -->
+    <div class="modal fade" id="sign-inModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div id="modal" class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center m-5">
+                    <h3>Sign in with email</h3>
+                    <br />
+                    <p>Enter the email address associated with your account, and we’ll send a magic link to your inbox.</p>
+                    <div class="d-grid">
+                        <p>Your Email</p>
+                        <input class="border-0 border-bottom border-dark" asp-for="Email" value="" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <br />
+                    <input class="btn btn-dark rounded-pill" type="submit" value="Continue" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

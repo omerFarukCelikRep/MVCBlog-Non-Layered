@@ -1,0 +1,200 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string bio;
+    if (string.IsNullOrEmpty(Model.Biography))
+    {
+        bio = "Add your bio";
+    }
+    else
+    {
+        bio = Model.Biography;
+    }
+}
+
+
+
+@section Header {
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bookmarks" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content {
+    @Html.AntiForgeryToken()
+    <div class="container">
+
+        <div class="row mt-5">
+
+
+            <div class="col-3">
+                <div class="d-flex flex-column p-3" style="width: 280px;">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <h4>Settings</h4>
+                        </li>
+                        <li>
+                            <a href="#about-you" class="nav-link text-black-50">
+                                <h5>About You</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#email-settings" class="nav-link text-black-50">
+                                <h5>Email Settings</h5>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#account" class="nav-link text-black-50">
+                                <h5>Account</h5>
+                            </a>
+                        </li>
+                    </ul>
+                    <hr class="text-black-50" />
+                </div>
+            </div>
+            <div class="col-9">
+                <form asp-action="Settings">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ID" />
+                    <input type="hidden" asp-for="CreatedDate" />
+                    <h2 id="about-you">About You</h2>
+                    <hr class="text-black-50" />
+                    <ul class="list-group">
+                        <li class="list-group-item border-0 d-flex">
+                            <div class="col-9">
+                                <h4>Name</h4>
+                                <input asp-for="Name" class="form-control border-0 border-bottom fs-5 border-light">
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                                <p class="mt-4">Your name appears on your <a class="text-black-50" href="#">Profile</a> page, as your byline, and in your responses. It is a required field.</p>
+                            </div>
+
+                            <div class="col-3 text-end">
+                                <input type="submit" class="btn border rounded-pill" value="Edit">
+                            </div>
+                        </li>
+                        <br />
+                        <li class="list-group-item border-0 d-flex">
+                            <div class="col-9">
+                                <h4>Bio</h4>
+                                <input asp-for="Biography" class="form-control border-0 border-bottom fs-5 border-light" placeholder="Add your bio">
+                                <span asp-validation-for="Biography" class="text-danger"></span>
+                                <p class="mt-4">Your bio appears on your <a class="text-black-50" href="#">Profile</a> and next to your stories. Max 160 characters.</p>
+                            </div>
+
+                            <div class="col-3 text-end">
+                                <input type="submit" class="btn border rounded-pill" value="Edit">
+                            </div>
+                        </li>
+                </form>
+                <br />
+                <li class="list-group-item border-0 d-flex">
+                    <div class="col-7">
+                        <h4>Photo</h4>
+                        <p class="mt-4">Your photo appears on your <a class="text-black-50" asp-action="Details" asp-route-id="@Model.ID">Profile</a> page and with your stories across Medium..</p>
+                        <p class="mt-4">Recommended size: Square, at least 1000 pixels per side. File type: JPG, PNG or GIF.</p>
+                    </div>
+                    <div class="col-3 text-center ms-4">
+                        <img id="imgViewerMember" class="rounded-circle mt-3 w-50 h-50" src="/Member/RetrieveImage/@Model.ID" />
+                        <br />
+                        <input id="memberImage" type="file" value="" class="form-control mt-4" />
+                    </div>
+                    <div class="col-2 text-end">
+                        <button id="btnSaveImage" class="btn border rounded-pill mt-5">Save</button>
+                    </div>
+                </li>
+                <li class="list-group-item border-0 d-flex">
+                    <div class="col-9">
+                        <h4>Username & URL</h4>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="fs-5 fw-bold">Username</td>
+                                    <td>
+                                        <input asp-for="Username" class="form-control border-0 border-bottom fs-5 border-light" />
+                                        <span asp-validation-for="Username" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="fs-5 fw-bold">URL</td>
+                                    <td>
+                                        <input asp-for="Url" class="form-control border-0 fs-5 bg-white" />
+                                        <span asp-validation-for="Url" class="text-danger"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-3 text-end">
+                        <input type="submit" class="btn border rounded-pill" value="Edit">
+                    </div>
+                </li>
+                </ul>
+                <br />
+                <h2 id="email-settings">Email settings</h2>
+                <hr class="text-black-50" />
+                <ul class="list-group">
+                    <li class="list-group-item border-0 d-flex">
+                        <div class="col-9">
+                            <h4>Your Email</h4>
+                            <input asp-for="Email" id="edit" class="form-control border-0 border-bottom fs-5 border-light" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-3 text-end">
+                            <input type="submit" class="btn border rounded-pill" value="Edit Email">
+                        </div>
+                    </li>
+                </ul>
+
+                <br />
+                <input type="hidden" asp-for="ID" />
+                <h2 id="account">Account</h2>
+                <hr class="text-black-50" />
+                <ul class="list-group">
+                    <li class="list-group-item border-0 d-flex">
+                        <div class="col-9">
+                            <p>Delete Profile</p>
+                        </div>
+                        <div class="col-3 text-end">
+                            <input type="submit" class="btn btn-danger border rounded-pill" value="Delete" asp-action="Delete" asp-route-id="@Model.ID">
+                        </div>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+    </div>
+
+}
+
+

@@ -1,0 +1,28 @@
+﻿@model IEnumerable<MVCBlog.Models.DataAccess.Entities.DTOs.ArticleWithMemberDetail>
+
+
+
+@foreach (var item in Model)
+{
+<div class="row g-0 border-0 rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+    <div class="col p-4 mt-3 d-flex flex-column position-static">
+        <div class="col-12 d-flex">
+            <div class="mb-2">
+                <img class="img-28 rounded-circle" src="/Member/RetrieveImage/@item.MemberID" />
+                <label class="fs-6">@Html.DisplayFor(modelItem => item.MemberName)</label>
+            </div>
+        </div>
+        <h3 class="mb-2"><a asp-action="Index" asp-controller="Article" asp-route-id="@item.ArticleID" class="text-decoration-none text-dark">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+        <small class="text-muted">
+            <label>@Html.DisplayFor(modelItem => item.CreatedDate)</label>
+            .
+            <label>@Html.DisplayFor(modelItem => item.ReadingTime)</label> mins read
+            <label class="bi-star-fill"></label>
+        </small>
+    </div>
+    <div class="col-auto d-none d-lg-block">
+        <img src="/Article/RetrieveImage/@item.ArticleID" class="article-img"/>
+    </div>
+</div>
+}
+

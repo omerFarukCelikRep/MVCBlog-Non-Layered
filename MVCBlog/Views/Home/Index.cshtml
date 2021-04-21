@@ -1,0 +1,112 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header {
+    <!-- Fixed Navbar  -->
+    @Html.ValidationSummary()
+    <nav id="nav" class="navbar navbar-expand-md fixed-top border-bottom border-dark">
+        <div class="container">
+            <a class="navbar-brand" asp-action="Index">
+                <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+            </a>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark" aria-current="page" asp-action="About">Our Story</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#sign-upModal">Write</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark" aria-current="page" href="#" data-bs-toggle="modal" data-bs-target="#sign-inModal">Sign-In</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" class="btn btn-warning bg-dark text-white rounded-pill mx-1" data-bs-toggle="modal" data-bs-target="#sign-upModal" onclick="myFunction()">Get Started</button>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+    @await Component.InvokeAsync("Login")
+
+
+}
+
+@section Content {
+    <div id="nav" class="mt-5 pt-5 mb-2 border-bottom border-dark">
+        <div class="container">
+            <div class="col-12">
+                <div class="col-6 offset-1">
+
+                    <h1 id="cont-head">
+                        Where good ideas find you
+                    </h1>
+                    <br />
+                    <h5 class=" text-black-50">
+                        Read and share new perspectives on just about any topic. Everyone's welcome <a href="#" class="text-black-50">Learn More.</a>
+                    </h5>
+                    <br />
+                    <button type="button" class="btn border-dark bg-transparent mb-5" data-bs-toggle="modal" data-bs-target="#sign-upModal">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        @await Component.InvokeAsync("Trends")
+    </div>
+
+    <hr />
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                @await Component.InvokeAsync("Articles")
+            </div>
+            <div class="col-4">
+                <h6>DISCOVER MORE OF WHAT MATTERS TO YOU</h6>
+                <br />
+                <div>
+                    @await Component.InvokeAsync("Topics")
+                </div>
+                <br />
+                <a class="link-success text-decoration-none" asp-action="Index" asp-controller="Topic">See All Topics</a>
+                <hr />
+            </div>
+        </div>
+    </div>
+
+
+}
+
+@section Footer {
+    <div class="bg-dark">
+        <div class="container">
+            <div class="">
+                <div class="py-4">
+                    <a href="#">
+                        <img class="img-negative img-footer" src="Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+                    </a>
+                    <div class="float-end">
+                        <ul class="nav mb-2 mb-md-0 d-flex">
+                            <li class="px-2">
+                                <a class="nav-link link-light" aria-current="page" asp-action="About">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,110 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Article
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md bg-white">
+        <div class="container">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview (2).png" />
+                </a>
+                <label>Draft</label>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-three-dots" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+@Html.ValidationSummary()
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container">
+            <div class="row mt-5">
+
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="input-group input-group-lg">
+                        <input asp-for="Title" class="form-control border-0 border-start" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-floating">
+                        <textarea asp-for="Content" id="summernote" class="form-control border-0 border-start"></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-floating">
+                        <input asp-for="Image" type="file" name="ImageData" id="ImageData" onchange="fileCheck(this);" />
+                        @*<span asp-validation-for="Image" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-group">
+                        @*@Html.DropDownList("ID", (MultiSelectList)ViewBag.Topics, new { multiple = "multiple" })*@
+                        @*@Html.ListBoxFor(model => model.ArticleTopics, new MultiSelectList(ViewBag.Topics, "ID", "Name"), new { @class = "", multiple = "multiple", id = "Topics_Dropdown"})*@
+                        @*@Html.DropDownListFor(new MultiSelectList(ViewBag.Topics, "ID", "Name"), new { @class = "form-control", multiple = "multiple", id = "Topics_Dropdown" })*@
+                        @Html.ListBoxFor(model => model.ArticleTopics, new MultiSelectList(ViewBag.Topics, "Value", "Text"), new { @class = "form-control", @multiple = "multiple", id = "Topics_Dropdown" })
+                        <select asp-for="ArticleTopics" class="form-control border-0 border-start" asp-items="ViewBag.Topics" multiple></select>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="form-group float-end">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@*@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#Topics_Dropdown').multiselect();
+        });
+    </script>
+}*@

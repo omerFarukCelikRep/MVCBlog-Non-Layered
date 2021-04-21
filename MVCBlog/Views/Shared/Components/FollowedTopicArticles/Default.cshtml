@@ -1,0 +1,27 @@
+﻿@model IEnumerable<MVCBlog.Models.DataAccess.Entities.DTOs.ArticleWithMemberDetail>
+
+<div class="row row-cols-1 row-cols-2 g-5">
+
+    @foreach (var item in Model)
+    {
+        <div class="col my-2">
+            <div class="card border-0" style="max-width: 540px;">
+                <div class="row">
+                    <img src="/Article/RetrieveImage/@item.ArticleID" class="card-img-top w-100 h-175" />
+                    <div class="card-body">
+                        <div>
+                            <img class="mx-3 img-28 rounded-circle" src="~/Images/1_dmbNkD5D-u45r44go_cf0g.png" />
+                            <label class="fs-6">@Html.DisplayFor(modelItem => item.MemberName)</label>
+                        </div>
+                        <h6 class="card-title">@Html.DisplayFor(modelItem => item.Title)</h6>
+                        @Html.Raw(item.Content)
+                        <small class="card-text text-muted"> @Html.DisplayFor(modelItem => item.CreatedDate) <label class="text-muted">. <label>@Html.DisplayFor(modelItem => item.ReadingTime)</label> mins read <span class="bi-star-fill p-1"></span></label></small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+</div>
+
+

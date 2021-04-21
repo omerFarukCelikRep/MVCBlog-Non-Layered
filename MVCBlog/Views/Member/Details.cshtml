@@ -1,0 +1,131 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <div class="d-flex">
+                <a class="navbar-brand" asp-action="Details" asp-controller="Member" asp-route-id="@Model.ID">
+                    <h1 class="text-dark">@Html.DisplayFor(model => model.Name)</h1>
+                </a>
+                <form class="d-flex align-middle">
+                    <ul class="nav mt-3">
+                        <li class="mt-2">
+                            <a class="text-black-50 text-decoration-none">1K Followers</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-black-50 text-decoration-none" aria-current="page">About</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-success border rounded-pill border-success" aria-current="page">Following</a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <div class="dropdown">
+                                <button class="btn bi-three-dots px-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                    <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                    <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a asp-controller="Home" asp-action="Index"><img class="img-40" src="~/Images/Medium_logo_-_black-512.png" /></a>
+                        </li>
+                    </ul>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-2 px-4">
+                <div class="">
+                    <img class="w-75" src="/Member/RetrieveImage/@Model.ID" />
+                </div>
+                <div class="mt-4">
+                    <h6>@Html.DisplayFor(model => model.Name)</h6>
+                </div>
+                <div class="mt-2 text-black-50">
+                    <p>@Html.DisplayFor(model => model.Biography)</p>
+                </div>
+            </div>
+            <div class="col-8">
+                @foreach (var item in Model.Articles)
+                {
+                    <div class="col-12">
+                        <p class="m-2">
+                            Published in <a class="text-decoration-none text-dark fw-bold" asp-action="Details" asp-controller="Member" asp-route-id="@item.Member.ID">@Html.DisplayFor(modelItem => item.Member.Name)</a> . <label>@Html.DisplayFor(modelItem => item.CreatedDate)</label>
+                        </p>
+                        <div class="mt-0">
+                            <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                        </div>
+                        <div class="mt-4">
+                            <p>
+                                @Html.DisplayFor(modelItem => item.Content)
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <a class="link-success text-decoration-none" asp-action="Details" asp-controller="Member" asp-route-id="@item.Member.ID">Read More in <label>@Html.DisplayFor(modelItem => item.Member.Name)</label> . <label>@Html.DisplayFor(modelItem => item.ReadTime)</label></a>
+                        </div>
+                        <div class="mt-4">
+                            <div class="float-end mt-1">
+                                <div class="dropdown">
+                                    <button class="btn bi-three-dots px-0 float-end fs-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Dismiss This Story</a></li>
+                                        <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                        <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                        <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                                    </ul>
+                                    <a class="link-dark bi-bookmark float-end fs-5 mt-1 mx-2" href="#"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-5" />
+                }
+            </div>
+            </div>
+        </div>
+}
+
+@section Footer
+{
+    <div class="bg-dark">
+        <div class="container">
+            <div class="">
+                <div class="py-4">
+                    <a asp-action="Index" asp-controller="Home">
+                        <img class="img-negative img-footer" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+                    </a>
+                    <div class="float-end">
+                        <ul class="nav mb-2 mb-md-0 d-flex">
+                            <li class="px-2">
+                                <a class="nav-link link-light" aria-current="page" asp-action="About" asp-controller="Home">About</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

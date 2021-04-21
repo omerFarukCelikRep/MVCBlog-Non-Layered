@@ -1,0 +1,125 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.DTOs.ArticleDTO
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Html.AntiForgeryToken()
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md bg-white">
+        <div class="container">
+            <div>
+                <a class="navbar-brand" href="#">
+                    <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview (2).png" />
+                </a>
+                <label>Draft</label>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-three-dots" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    @Html.ValidationSummary()
+    <form asp-action="AddArticle" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="container">
+            <div class="row mt-5">
+
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="input-group input-group-lg">
+                        @Html.HiddenFor(model => model.ID)
+                        <input asp-for="Title" class="form-control border-0 border-start" />
+                        @Html.ValidationMessageFor(model => model.Title)
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-floating">
+                        @Html.TextAreaFor(model => model.Content, new { @class = "form-control border-0 border-start", id = "summernote" })
+                        @Html.ValidationMessageFor(model => model.Content)
+                        @*<span asp-validation-for="Content" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-floatin text-center">
+                        <img class="w-75" id="imgViewer" style="border:1px solid blue" src="/Article/RetrieveImage/@Model.ID" />
+                        <input asp-for="Image" class="custom-file-input my-4" id="customFile">
+
+                        @Html.ValidationMessageFor(model => model.Image)
+                        @*<span asp-validation-for="Image" class="text-danger"></span>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-group">
+                        @Html.ListBoxFor(model => model.TopicIDs, new SelectList(Model.Topics, "Value", "Text"), new { @class = "form-control", multiple = "multiple", id = "Topics_Dropdown" })
+
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="form-group float-end">
+                        <input type="submit" value="Create" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+
+@section Scripts{
+
+
+    @*<script src="~/bootstrap-multiselect/js/bootstrap-multiselect.js"></script>*@
+    <script>
+        $(document).ready(function () {
+            $('#Topics_Dropdown').multiselect();
+            $(".custom-file-input").on("change", function () {
+                var fileName = $(this).val().split("\\").pop();
+                $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+            });
+        });
+
+        $("#customFile").change(function (event) {
+            var files = event.target.files;
+            $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
+        });
+    </script>
+} 

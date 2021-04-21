@@ -1,0 +1,203 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.DTOs.ArticleAndMemberWithArticles
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <div class="d-flex">
+                <a class="navbar-brand" href="#">
+                    <h1 class="text-dark">@Html.DisplayFor(model => model.Member.Name)</h1>
+                </a>
+                <form class="d-flex align-middle">
+                    <ul class="nav mt-3">
+                        <li class="nav-item px-2">
+                            <a class="nav-link text-black-50 text-decoration-none" aria-current="page" asp-action="Details" asp-controller="Member" asp-route-id="@Model.Member.ID">About</a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <div class="dropdown">
+                                <button class="btn bi-three-dots px-0" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                    <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                    <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a asp-controller="Home" asp-action="Index"><img class="img-40" src="~/Images/Medium_logo_-_black-512.png" /></a>
+                        </li>
+                    </ul>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                <div class="mt-5">
+                    <h6>@Html.DisplayFor(model => model.Member.Name)</h6>
+                </div>
+                <div class="mt-2 text-black-50">
+                    <p>@Html.DisplayFor(model => model.Member.Biography)</p>
+                </div>
+                <hr />
+            </div>
+            <div class="col-8">
+                <div class="mt-5">
+                    <h1>@Html.DisplayFor(model => model.Article.Title)</h1>
+                </div>
+                <div>
+                    <div class="d-inline-flex mt-2">
+                        <a class="mx-2" href="#">
+                            <img class="img-28 rounded-circle" src="/Member/RetrieveImage/@Model.Member.ID" />
+                        </a>
+                        <a class="link-success text-decoration-none" href="#">@Html.DisplayFor(model => model.Member.Name)</a>
+                        <label class="mx-2 text-black-50">@Html.DisplayFor(model => model.Article.CreatedDate)</label>
+                        .
+                        <label class="mx-2 text-black-50">@Html.DisplayFor(model => model.Article.ReadTime)</label>
+                    </div>
+                    <div class="float-end">
+                        <div class="dropdown">
+                            <button class="btn bi-three-dots px-0 float-end fs-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                            </ul>
+                            <a class="link-dark bi-bookmark float-end fs-5 mt-1 mx-2" href="#"></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        @Html.Raw(Model.Article.Content)
+                    </p>
+                </div>
+                <div class="mt-4">
+                    <div class="d-inline-flex">
+                        <a class="bi-hand-thumbs-up text-dark text-decoration-none mx-3 my-1 fs-4" asp-action="Like" asp-route-id="@Model.Article.ID"><label class="mx-2">@Html.DisplayFor(item => item.Article.LikeCount)</label></a>
+                    </div>
+                    <div class="float-end mt-1">
+                        <div class="dropdown">
+                            <button class="btn bi-three-dots px-0 float-end fs-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="#">Dismiss This Story</a></li>
+                                <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                            </ul>
+                            <a class="link-dark bi-bookmark float-end fs-5 mt-1 mx-2" href="#"></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-warning">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                </div>
+                <div class="col-8 mt-4">
+                    <div class="col-12 d-inline-flex">
+                        <div class="col-6">
+                            <h3>More From <label>@Html.DisplayFor(model => model.Member.Name)</label></h3>
+                        </div>
+                    </div>
+                    <p>@Html.DisplayFor(model => model.Member.Biography)</p>
+
+                    @foreach (var item in Model.Member.Articles)
+                    {
+                        <div class="col-12">
+                            <div class="mt-5">
+                                <h1><a class="text-decoration-none text-dark" asp-action="Index" asp-controller="Article" asp-route-id="@Html.DisplayFor(modelItem => item.ID)">@Html.DisplayFor(modelItem => item.Title)</a></h1>
+                            </div>
+                            <div class="mt-4 text-align-justify">
+                                <p>
+                                    @Html.Raw(item.Content)
+                                </p>
+                            </div>
+                            <div class="mt-4">
+                                <a class="link-success text-decoration-none" href="#">Read More in <a asp-action="Details" asp-controller="Member" asp-route-id="@item.Member.ID" class="fw-bold text-decoration-none text-dark">@Html.DisplayFor(modelItem => item.Member.Name)</a> . <label>@Html.DisplayFor(modelItem => item.ReadTime)</label></a>
+                            </div>
+                            <div class="mt-4">
+                                <div class="d-inline-flex">
+                                    <a class="bi-hand-thumbs-up text-dark text-decoration-none mx-3 my-1 fs-4"><label class="mx-2">@Html.DisplayFor(modelItem => item.LikeCount)</label></a>
+                                </div>
+                                <div class="float-end mt-1">
+                                    <div class="dropdown">
+                                        <button class="btn bi-three-dots px-0 float-end fs-5" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"></button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li><a class="dropdown-item" href="#">Dismiss This Story</a></li>
+                                            <li><a class="dropdown-item" href="#">Mute This Author</a></li>
+                                            <li><a class="dropdown-item" href="#">Block This Author</a></li>
+                                            <li><a class="dropdown-item" href="#">Report This Author</a></li>
+                                        </ul>
+                                        <a class="link-dark bi-bookmark float-end fs-5 mt-1 mx-2" href="#"></a>
+                                        <a class="link-dark bi-box-arrow-up float-end fs-5 mt-1 mx-2" href="#"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
+                    }
+
+
+                </div>
+                <div class="col-2">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Footer
+{
+    <div class="bg-dark">
+        <div class="container">
+            <div class="">
+                <div class="py-4">
+                    <a href="#">
+                        <img class="img-negative img-footer" src="Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+                    </a>
+                    <div class="float-end">
+                        <ul class="nav mb-2 mb-md-0 d-flex">
+                            <li class="px-2">
+                                <a class="nav-link link-light" aria-current="page" asp-action="About" asp-controller="Home">About</a>
+                            </li>
+                            <li class="px-2">
+                                <a class="nav-link link-light" aria-current="page">Help</a>
+                            </li>
+                            <li class="px-2">
+                                <a class="nav-link link-light" aria-current="page">Legal</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

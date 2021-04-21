@@ -1,0 +1,98 @@
+﻿@model MVCBlog.ViewModels.TopicAndMemberViewModel
+
+@using MVCBlog.Models.DataAccess.Entities.Concrete
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@section Header {
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bookmarks" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @if (Model.Member != null)
+                            {
+                                @await Component.InvokeAsync("MemberMenu")
+                            }
+                            else
+                            {
+                                <button type="button" class="btn btn-warning bg-dark text-white rounded-pill mx-1" data-bs-toggle="modal" data-bs-target="#sign-upModal">Get Started</button>
+
+                            }
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+
+}
+
+
+@section Content
+        {
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <h2>Customize your interests</h2>
+            <p>Here are people, topics, and publications you should consider following on Medium.</p>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-topic-tab" data-bs-toggle="tab" data-bs-target="#nav-topic" type="button" role="tab" aria-controls="nav-topic" aria-selected="true">Topics</button>
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-suggestion" role="tabpanel" aria-labelledby="nav-suggestion-tab">Suggestions</div>
+
+            <div class="tab-pane fade show active" id="nav-topic" role="tabpanel" aria-labelledby="nav-topic-tab">
+                <div class="border-bottom mt-5">
+                    <h4 class="">Topics</h4>
+                </div>
+                <div class="row row-cols-1 row-cols-md-3 g-4row-cols-1 row-cols-md-3 g-4">
+
+                    @foreach (var item in Model.Topics)
+                    {
+                        <div class="col">
+                            <div class="card w-280 h-280 m-5">
+                                <div class="card-body">
+                                    <div class="mt-1">
+                                        <h5 class="card-title">
+                                            <a class="text-decoration-none link-dark" asp-action="List" asp-route-id="@item.ID">@Html.DisplayFor(modelItem => item.Name)</a>
+                                            <a class="btn rounded-circle float-end p-0" asp-action="FollowTopic" asp-route-topicID="@item.ID">
+                                                <span class="bi-plus-circle fs-4"></span>
+                                            </a>
+                                        </h5>
+
+                                    </div>
+                                </div>
+                                <img src="/Topic/RetrieveImage/@item.ID" class="card-img-bottom w-100 h-75">
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+}

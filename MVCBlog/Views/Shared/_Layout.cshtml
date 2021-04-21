@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Medium</title>
+    <link href="~/twitter-bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/twitter-bootstrap/css/bootstrap-utilities.min.css" rel="stylesheet" />
+    <link href="~/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="~/css/Style.css" rel="stylesheet" />
+    <link href="~/css/dropdown.css" rel="stylesheet" />
+    <link href="~/css/StyleSheet.css" rel="stylesheet" />
+    <link href="~/summernote/summernote-lite.css" rel="stylesheet" />
+    <link href="~/bootstrap-multiselect/css/bootstrap-multiselect.css" rel="stylesheet" />
+
+</head>
+<body>
+    @RenderBody()
+    <header>
+        @RenderSection("Header", required: false)
+    </header>
+    <div>
+        @RenderSection("Content", required: false)
+    </div>
+    <footer>
+        @RenderSection("Footer", required: false)
+    </footer>
+
+    <script src="~/twitter-bootstrap/js/bootstrap.js"></script>
+    <script src="~/jquery/jquery.min.js"></script>
+    <script src="~/summernote/summernote-lite.js"></script>
+    <script src="~/js/js.js"></script>
+    <script src="~/js/styleJS.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

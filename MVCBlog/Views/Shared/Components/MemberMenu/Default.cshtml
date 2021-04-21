@@ -1,0 +1,26 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+<div class="dropdown text-end">
+    <a asp-action="Details" asp-controller="Member" asp-route-id="@Model.ID" class="d-block link-dark text-decoration-none mt-1" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="/Member/RetrieveImage/@Model.ID" alt="mdo" width="32" height="32" class="rounded-circle">
+    </a>
+    <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
+        <li>
+            <div class="d-inline-flex">
+                <div>
+                    <img class="rounded-circle img-40 img-40h ms-3 mt-2" src="/Member/RetrieveImage/@Model.ID" />
+                </div>
+                <div>
+                    <a class="dropdown-item" asp-action="Details" asp-controller="Member" asp-route-id="@Model.ID">@Html.DisplayFor(model => model.Name)</a>
+                    <a class="dropdown-item text-black-50" asp-action="Details" asp-controller="Member" asp-route-id="@Model.ID"><label>@Html.Raw("@")</label>@Html.DisplayFor(model => model.Username)</a>
+                </div>
+            </div>
+        </li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" asp-action="AddArticle" asp-controller="Article">Write A Story</a></li>
+        <li><a class="dropdown-item" asp-action="List" asp-controller="Article">Story</a></li>
+        <li><a class="dropdown-item" asp-action="Settings" asp-controller="Member">Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" asp-action="SignOut" asp-controller="Member">Sign out</a></li>
+    </ul>
+</div>

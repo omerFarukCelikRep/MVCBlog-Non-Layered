@@ -1,0 +1,72 @@
+﻿@model IEnumerable<MVCBlog.Models.DataAccess.Entities.Concrete.Article>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <div class="d-flex">
+                <a class="navbar-brand" href="#">
+                    <h1 class="text-dark"></h1>
+                </a>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a asp-action="Index" asp-controller="Home"><img class="img-40" src="~/Images/Medium_logo_-_black-512.png" /></a>
+                        </li>
+                    </ul>
+                </form>
+
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-2 px-4">
+            </div>
+            <div class="col-8">
+                @foreach (var item in Model)
+                {
+                    <div class="col-12">
+                        <p class="m-2">
+                            Published in <label class="fw-bold"><a asp-action="Details" asp-controller="Member" asp-route-id="@item.Member.ID">@Html.DisplayFor(modelItem => item.Member.Name)</a></label> . <label>Tarih</label>
+                        </p>
+                        <div class="mt-0">
+                            <h1>@Html.DisplayFor(modelItem => item.Title)</h1>
+                        </div>
+                        <div class="mt-4">
+                            <p>
+                                @Html.Raw(item.Content)
+                            </p>
+                        </div>
+                        <div class="mt-4">
+                            <a class="link-success text-decoration-none" asp-action="Details" asp-controller="Member" asp-route-id="@item.MemberID">Read More in @Html.DisplayFor(modelItem => item.Member.Name) . <label>@Html.DisplayFor(modelItem => item.ReadingCount)</label></a>
+                        </div>
+                        <div class="mt-4">
+                            <div class="d-inline-flex">
+                                <a class="bi-hand-thumbs-up text-dark text-decoration-none mx-3 my-1 fs-4" asp-action="Like" asp-controller="Article" asp-route-id="@item.ID"><label class="mx-2">@Html.DisplayFor(modelItem => item.LikeCount)</label></a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="my-5" />
+                }
+
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+    </div>
+}

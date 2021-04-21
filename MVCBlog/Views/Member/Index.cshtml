@@ -1,0 +1,90 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Member
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    string greeting = "";
+    if (DateTime.Now.Hour < 12)
+    {
+        greeting = "Good Morning";
+    }
+    else if (DateTime.Now.Hour < 18)
+    {
+        greeting = "Good Afternoon";
+    }
+    else
+    {
+        greeting = "Good Evening";
+    }
+}
+
+@section Header {
+    <nav class="navbar navbar-expand-md">
+        <div class="container mt-3">
+            <div class="d-flex">
+                <a class="navbar-brand border-end" href="#">
+                    <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+                </a>
+                <h4 class="mt-2">@Html.Raw(greeting)</h4>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bookmarks" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content {
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12 border-bottom d-flex">
+                <div class="col-9 d-flex border-end px-5">
+                    @await Component.InvokeAsync("FollowedTopicArticles", new { id = Model.ID }) 
+                </div>
+                <div class="col-4 ps-3">
+                    <h6>TOPICS YOU FOLLOW</h6>
+                    <div>
+                        @await Component.InvokeAsync("Topics", new { id = Model.ID })
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        @await Component.InvokeAsync("Trends")
+    </div>
+
+    <hr />
+    <br />
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                @await Component.InvokeAsync("Articles")
+            </div>
+            <div class="col-4">
+                @*@await Component.InvokeAsync("Topics")*@
+            </div>
+        </div>
+    </div>
+}
+

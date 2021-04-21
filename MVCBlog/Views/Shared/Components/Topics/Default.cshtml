@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MVCBlog.Models.DataAccess.Entities.Concrete.Topic>
+
+
+
+@foreach (var item in Model)
+{
+    <a asp-action="List" asp-controller="Topic" asp-route-id="@item.ID" class="btn border-success text-decoration-none my-1">@Html.DisplayFor(modelItem => item.Name)</a>
+}
+
+@if (!string.IsNullOrEmpty(Context.Request.Cookies["ID"]))
+{
+    <a asp-action="Index" asp-controller="Topic" class="btn border-success text-decoration-none m-1 bi-plus"></a>
+}

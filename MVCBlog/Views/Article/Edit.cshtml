@@ -1,0 +1,85 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Article
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md bg-white">
+        <div class="container">
+            <div>
+                <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                    <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview (2).png" />
+                </a>
+                <label>Draft in Username</label>
+            </div>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-three-dots" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    <form asp-action="Edit">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="container">
+            <div class="row mt-5">
+
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="input-group input-group-lg">
+                        <input asp-for="Title" class="form-control border-0 border-start" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-floating">
+                        <textarea asp-for="Content" id="summernote" class="form-control border-0 border-start" style="height: 400px" placeholder="Tell your story..."></textarea>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-1 text-center align-middle fs-2">
+                    <span class="bi-plus-circle"></span>
+                </div>
+                <div class="col-11">
+                    <div class="form-group">
+                        @*<select asp-for="TopicID" class="form-control border-0 border-start" asp-items="ViewBag.TopicID"></select>*@
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-2">
+                <div class="col-12">
+                    <div class="form-group float-end">
+                        <input type="submit" value="Update" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}

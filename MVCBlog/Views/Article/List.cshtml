@@ -1,0 +1,138 @@
+﻿@model IEnumerable<MVCBlog.Models.DataAccess.Entities.Concrete.Article>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Header
+{
+    <nav class="navbar navbar-expand-md border-bottom bg-white shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" asp-action="Index" asp-controller="Home">
+                <img id="nav-brand-img" src="~/Images/medium-2020-new-logo-4DD1CA1BFF-seeklogo.com__2_-removebg-preview.png" />
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div id="navbarCollapse">
+                <form class="d-flex float-lg-end">
+                    <ul class="nav navbar-nav me-auto mb-2 mb-md-0">
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-search" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bookmarks" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link link-dark bi-bell" aria-current="page" href="#"></a>
+                        </li>
+                        <li class="nav-item px-2">
+                            @await Component.InvokeAsync("MemberMenu")
+                        </li>
+                    </ul>
+
+                </form>
+            </div>
+        </div>
+    </nav>
+}
+
+@section Content
+{
+    @Html.AntiForgeryToken()
+    <div class="container">
+        <div class="mt-5 mb-5">
+            <div class="row">
+                <div class="col-8">
+                    <h1>Your Stories</h1>
+                </div>
+                <div class="col-4 ">
+                    <a class="nav-link link-success border rounded border-success float-end ms-2" aria-current="page" asp-action="AddArticle">Write A Story</a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-draft-tab" data-bs-toggle="tab" data-bs-target="#nav-draft" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Drafts</button>
+                <button class="nav-link " id="nav-published-tab" data-bs-toggle="tab" data-bs-target="#nav-published" type="button" role="tab" aria-controls="nav-published" aria-selected="false">Published</button>
+            </div>
+        </nav>
+        <div class="tab-content border-bottom" id="nav-tabContent">
+            <div class="tab-pane fade active show mt-4" id="nav-draft" role="tabpanel" aria-labelledby="nav-draft-tab">
+                @foreach (var item in Model.Where(a => a.IsPublished == false))
+                {
+                    <div class="row border-bottom">
+                        <div class="col-10">
+                            <div class="mt-3">
+                                <a class="text-decoration-none text-dark" asp-action="AddArticle" asp-route-id="@item.ID"><h5>@Html.DisplayFor(modelItem => item.Title)</h5></a>
+                                <p class="text-black-50 fs-5">
+                                    @if (item.Content.Length > 200)
+                                    {
+                                        @item.Content.Substring(0, 200)
+                                        <label>...</label>
+                                    }
+                                    else
+                                    {
+                                        @item.Content
+                                    }
+                                </p>
+
+                                <div class="d-flex">
+                                    <p class="text-black-50 fs-6">
+                                        Created <label>@Html.DisplayFor(modelItem => item.CreatedDate)</label> . <label>@Html.DisplayFor(modelItem => item.ReadTime)</label>  min read
+
+                                    </p>
+                                    <div class="dropdown mx-2">
+                                        <button onclick="myFunction(@item.ID.ToString())" class="text-danger dropbtn fw-bold py-0 btn border-0 dropdown-toggle rounded-pill">Seçenekler</button>
+                                        <div id="@item.ID.ToString()" class="dropdown-content">
+                                            <a asp-action="AddArticle" asp-route-id="@item.ID">Edit</a>
+                                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-auto pt-3">
+                            <a type="submit" class="btn btn-success" asp-action="Publish" asp-route-id="@item.ID">Publish</a>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="tab-pane fade show mt-4" id="nav-published" role="tabpanel" aria-labelledby="nav-published-tab">
+                @foreach (var item in Model.Where(a => a.IsPublished == true))
+                {
+                    <div class="border-bottom mt-3">
+                        <a class="text-decoration-none text-dark" asp-action="Edit" asp-route-id="@item.ID"><h5>@Html.DisplayFor(modelItem => item.Title)</h5></a>
+                        <p class="text-black-50 fs-5">
+                            @if (item.Content.Length > 200)
+                            {
+                                @item.Content.Substring(0, 200)
+                                <label>...</label>
+                            }
+                            else
+                            {
+                                @item.Content
+                            }
+                        </p>
+
+                        <div class="d-flex">
+                            <p class="text-black-50 fs-6">
+                                Created <label>@Html.DisplayFor(modelItem => item.CreatedDate)</label> . <label>@Html.DisplayFor(modelItem => item.ReadTime)</label>  min read
+
+                            </p>
+                            <div class="dropdown mx-2">
+                                <button onclick="myFunction(@item.ID.ToString())" class="text-danger dropbtn fw-bold py-0 btn border-0 dropdown-toggle rounded-pill">Seçenekler</button>
+                                <div id="@item.ID.ToString()" class="dropdown-content">
+                                    <a asp-action="AddArticle" asp-route-id="@item.ID">Edit</a>
+                                    <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}
+

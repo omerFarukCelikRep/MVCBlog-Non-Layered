@@ -1,0 +1,102 @@
+﻿@model MVCBlog.Models.DataAccess.Entities.Concrete.Topic
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    <h4>Topic</h4>
+    <hr />
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-2">
+                        <label>@Html.DisplayNameFor(item => item.Name)</label>
+                    </div>
+                    <div class="col-10">
+                        <input id="topicName" type="text" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label>@Html.DisplayNameFor(item => item.Image)</label>
+                    </div>
+                    <div class="col-10">
+                        <input id="topicImage" type="file" value="Upload Image" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="row">
+                    <img id="imgViewer" width="200" height="200" style="border:1px solid blue" />
+                </div>
+                <div class="row">
+                    <button id="btnSave" class="btn btn-success">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="text/javascript" src="~/jquery/jquery.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+        });
+
+
+        $("#topicImage").change(function (event) {
+            var files = event.target.files;
+            $("#imgViewer").attr("src", window.URL.createObjectURL(files[0]));
+        });
+
+        $("#btnSave").click(function () {
+            var files = $("#topicImage").prop("files");
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append("file", files[i])
+            }
+
+            var oTopic = {
+                Name: $("#topicName").val()
+            };
+
+            formData.append("Entity", JSON.stringify(oTopic));
+
+            $.ajax({
+                type: "POST",
+                url: "/Topic/Create",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {
+                    ResetFields();
+                    alert("Saved");
+                },
+                error: function (data) {
+                    console.log("Failed");
+                }
+            });
+        });
+
+        function ResetFields() {
+            $("#topicName").val("");
+            $("#imgViewer").attr("src", "");
+        }
+
+    </script>
+</body>
+</html>

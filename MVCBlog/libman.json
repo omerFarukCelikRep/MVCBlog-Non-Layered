@@ -1,0 +1,43 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "jquery@3.6.0",
+      "destination": "wwwroot/jquery/",
+      "files": [
+        "jquery.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-icons@1.4.1",
+      "destination": "wwwroot/bootstrap-icons/"
+    },
+    {
+      "library": "twitter-bootstrap@5.0.0-beta3",
+      "destination": "wwwroot/twitter-bootstrap/",
+      "files": [
+        "js/bootstrap.min.js",
+        "css/bootstrap-utilities.css",
+        "css/bootstrap-utilities.min.css",
+        "css/bootstrap.css",
+        "css/bootstrap.min.css",
+        "js/bootstrap.bundle.js",
+        "js/bootstrap.bundle.min.js",
+        "js/bootstrap.js"
+      ]
+    },
+    {
+      "library": "summernote@0.8.18",
+      "destination": "wwwroot/summernote/"
+    },
+    {
+      "library": "bootstrap-multiselect@0.9.16",
+      "destination": "wwwroot/bootstrap-multiselect/"
+    },
+    {
+      "library": "multiselect@2.2.9",
+      "destination": "wwwroot/multiselect/"
+    }
+  ]
+}
